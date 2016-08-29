@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="row">
+<center>
+    <div class="col-md-12">
+      <!--Body content-->
+<h1> Chicago Crime Data Analysis</h1>
+<br>
+<form method="post">
+          <select ng-model="info">
+          <option value="year">Year</option>
+          <option  value="above">Above 500</option>
+          <option value="below">Below 500</option>
+          </select>
+          Value :  <input type="text" ng-model="val" />
+          <input type="button" value="Filter" ng-click="searchfil(val,info)">
+          <br>
+</form>
+<br><br>
+<table class="crimes">
+
+
+          <th  ng-click="sort('year')"><a href="#">Year<span ng-show="$ctrl.orderProp=='year'"
+          ng-class="{'fa fa-caret-down':reverse,'fa fa-caret-up':!reverse}"></span></th>
+
+          <th ng-click="sort('Below500')"><a href="#">Below500<span ng-show="$ctrl.orderProp=='Below500'"
+          ng-class="{'fa fa-caret-down':reverse,'fa fa-caret-up':!reverse}"></span></a></th>
+
+          <th ng-click="sort('Above500')"><a href="#">Above500<span ng-show="$ctrl.orderProp=='Above500'"
+          ng-class="{'fa fa-caret-down':reverse,'fa fa-caret-up':!reverse}"></span></a></th>
+
+          <th>Option</th>
+          <tr ng-repeat="crime in $ctrl.crimes | startfrom:(($ctrl.currentPage)*($ctrl.pageSize))| limitTo:$ctrl.pageSize | orderBy:$ctrl.orderProp:reverse">
+          <td>{{crime.year}}</td>
+          <td>{{crime.Below500}}</td>
+          <td>{{crime.Above500}}</td>
+          <td><button type="button" name="button" ng-click="delete($index+($ctrl.currentPage*$ctrl.pageSize));reset()">Delete</button></td>
+</table>
+
+<br><br>
+<button ng-disabled="$ctrl.currentPage == 0" ng-click="$ctrl.currentPage=$ctrl.currentPage-1">
+<<
+</button>
+<button ng-repeat="i in [1,2,3,4,5,6,7,8]  | limitTo:$ctrl.pageCount" ng-click="$ctrl.currentPage=i-1">{{i}}</button>
+<button ng-disabled="$ctrl.currentPage>=$ctrl.crimes.length/$ctrl.pageSize-1" ng-click="$ctrl.currentPage=$ctrl.currentPage+1">
+>>
+</button>
+
+<form name="submit_entry_form" method="post">
+          <br>
+          Year :  <input type="number" name="year" min="1947" max="2016" ng-model="Year" ng-pattern="/^[0-9]{1,7}$/" required>
+          <span ng-show="submit_entry_form.year.$dirty && submit_entry_form.year.$invalid">Year must be 1947 to 2016</span>
+          </input>
+          <br>
+          Under 500:  <input type="number" min="0" max="100000" name="under" ng-model="Below500" ng-pattern="/^[0-9]{1,7}$/" required >
+          <span ng-show="submit_entry_form.under.$dirty && submit_entry_form.under.$invalid">ERROR!!!</span>
+          </input>
+          <br>
+          Over 500:  <input type="number" min="0" max="100000" name="over" ng-model="Above500" ng-pattern="/^[0-9]{1,7}$/" required >
+          <span ng-show="submit_entry_form.over.$dirty && submit_entry_form.over.$invalid">ERROR!!!</span>
+          </input>
+          <br>
+          <!-- <span ng-show="submit_entry_form.y.$dirty && submit_entry_form.y.$invalid || submit_entry_form.under.$dirty && submit_entry_form.under.$invalid || submit_entry_form.over.$dirty && submit_entry_form.over.$invalid">Error!</span><br> -->
+          <input type="button" ng-disabled="submit_entry_form.$invalid" value="Add" ng-click="addingrows();reset();"/>
+</form>
+
+</div>
+</center>
+</div>
+</div>

@@ -1,0 +1,21 @@
+body {
+  padding-top: 20px;
+  background: white;
+}
+
+table{
+
+  background: white;border:1px solid #000;
+  width: 40%;
+}
+
+table th{
+  text-align: center;
+  background:#e3e3e3;
+}
+
+table td{
+  text-align: center;
+  padding:10px;
+  border:1px solid #DDD;
+}
